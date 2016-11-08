@@ -14,7 +14,7 @@ class DBHandler
     function __construct($host,$user,$password,$db){
 
         //TODO create the database connection.
-        //TODO make sure the table 'albums' exists.
+        //TODO make sure the table 'albums' exists by calling ensureAlbumsTable()
     }
 
     /**

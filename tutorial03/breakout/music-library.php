@@ -70,7 +70,7 @@ $dbHandler = new DBHandler($host,$user,$password,$db);
 
 // now, let's see whether the user has submitted the form
 if(isset($_POST['submit'])){
-    // TODO: sanitize the input (prevent sql injections);
+    // TODO: sanitize the input (prevent sql injections) by calling $dbHandler->sanitizeInput(...);
     // TODO: Insert the data.
     // TODO: Inform the user. If there was an error, show a notification. If it succeeded inform the user, too.
 }
@@ -94,10 +94,9 @@ if(isset($_POST['submit'])){
         echo '<tr class="notification"><td colspan="3">There are no albums yet. You can enter the artist and album title below, then click save.</td></tr>';
     }
     else{
-
-        // TODO loop through the $albums array (two-dimensional!)
-        // TODO create table rows for the first level of the array (albums)
-        // TODO create table cells for all the entries
+        // TODO loop through the $albums array
+        // TODO create table rows for albums
+        // TODO create table cells for all data
     }
     ?>
     </tbody>
