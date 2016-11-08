@@ -1,0 +1,21 @@
+{
+  "name": "mmn-tutorial04",
+  "homepage": "https://github.com/MIMUC-MMN/tutorials-16-17",
+  "authors": [
+    "Tobias Seitz <tobi@tobitobi.de>"
+  ],
+  "description": "Material for Online Multimedia 16/17 tutorial 04",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}

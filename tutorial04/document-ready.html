@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document Ready</title>
+  <!-- We include jQuery via Bower (see README) -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!--
+    If you don't want to use bower, you can include jQuery like this:
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  -->
+  <script>
+    $('#notReadyYet').html('You won\'t see this.');
+    $(document).ready(function() {
+      $('#nowIamReady').html('Now I am ready. 😎');
+    });
+  </script>
+</head>
+<body>
+<div id="notReadyYet"></div>
+<div id="nowIamReady"></div>
+</body>
+</html>

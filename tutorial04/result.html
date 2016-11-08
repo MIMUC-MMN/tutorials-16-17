@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Result set</title>
+  <!-- We include jQuery via Bower (see README) -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!--
+    If you don't want to use bower, you can include jQuery like this:
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  -->
+  <style>
+    #container {
+      display: flex; width: 100%;
+      flex-wrap: wrap;
+    }
+    .flexChild {
+      flex: 1;
+      min-width: 200px;
+      max-width: 400px;
+      background-color: #00B7FF;
+      height: 50px; margin:5px;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <div></div>   <div></div>
+  <div></div>   <div></div>
+  <div></div>   <div></div>
+</div>
+<script>
+  $('#container > div').addClass('flexChild');
+</script>
+</body>
+</html>
