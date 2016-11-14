@@ -1,0 +1,61 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+body {
+    font: 11px Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#container {
+    width:80%;
+    background-color: seashell;
+    padding: 1em;
+    text-align: center;
+}
+
+section{
+}
+
+.result {
+    font: 16px monospace;
+    margin: 1em 0;
+    display: block;
+}
+
+img.hangman {
+    width: 60%;
+    height: 60%;
+    display: block;
+    margin: auto;
+}
+
+.debug {
+    background-color: hotpink;
+    color: white;
+    padding: 1em;
+    width: 100%;
+}
+
+.youlose {
+    font-size: 120%;
+    color: hotpink;
+}
+
+@media(max-width:720px) {
+    #container {
+        width: 100%;
+    }
+    img.hangman {
+        width: 90%;
+        heigth: 90%;
+    }
+    input[name=letter] {
+        width: 30px;
+    }
+}
