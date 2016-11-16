@@ -62,7 +62,7 @@
 
         // if you want to make the game harder, you can start it at a later stage
         // by adding a handicap to the progress.
-        $handicap = 5;
+        $handicap = 0;
         $progress += $handicap;
 
         $imageFile = 'hangman';
@@ -77,7 +77,8 @@
         echo '<div class="result">';
         // if the progress is smaller than a predefined number of attempts ==> we can play on.
         if ($progress < $maximumAttempts) {
-
+            // keep a record of the guessed word;
+            $guessedWord = '';
             // we go through each letter of the secret word and see if it's a hit or a miss.
             for ($i = 0; $i < $wordLength; $i++) {
                 // make sure we use the uppercase version of the letters.
@@ -85,25 +86,35 @@
 
                 // case 1: the letter of the word is in the guess array --> reveal the letter
                 if (isset($_SESSION['hits'][$charAtI])) {
-                    echo $charAtI;
-                } // case 2: the letter was not guessed yet --> show an underscore
+                    $guessedWord .= $charAtI;
+                } // case 2: the letter was not guessed yet --> add an underscore
                 else {
+                    $guessedWord .= '_';
                     // print an underscore for each character in the word.
-                    echo '_' . ($i != $wordLength - 1 ? ' ' : '');
                 }
             }
 
-            // now, to be a little more usable, show which letters were already guessed;
-            if (count($_SESSION['misses'])) { // only give feedback, if there misses.
-                echo '<div class="misses">Those letters are wrong: ';
-                foreach ($_SESSION['misses'] as $miss => $status) {
-                    echo $miss . ' ';
+            // let's see of the word was correct.
+            if (strtoupper($guessedWord) == strtoupper($secretWord)) {
+                echo '<div class="success">Yes! You Won!</div>';
+                echo '<div>'.$secretWord.' was the secret Word.</div>';
+                $_SESSION = array();
+            } else {
+                // first show the current status:
+                echo implode(' ', str_split($guessedWord));
+
+
+                // now, to be a little more usable, show which letters were already guessed;
+                if (count($_SESSION['misses'])) { // only give feedback, if there misses.
+                    echo '<div class="misses">Those letters are wrong: ';
+                    foreach ($_SESSION['misses'] as $miss => $status) {
+                        echo $miss . ' ';
+                    }
+                    echo '</div>';
                 }
-                echo '</div>';
             }
         } else { // oh no, the user lost!
             echo "<div class=\"youlose\"><h3>Oh No!</h3><p>You lost. The solution was \"$secretWord\". </p></div>";
-            session_destroy();
             $_SESSION = array();
         }
 
