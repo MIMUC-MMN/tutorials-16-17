@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Valid CORS</title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // please note: this will only work if you are
+            // visiting this page via http! not file:///
+            // and if Apache is running.
+            $.get('cors.php').done(function(data) {
+                if(data && data.albums) {
+                    data.albums.forEach(function(album) {
+                        var div = $('<div>');
+                        div.html(album.name + ' by ' + album.artist);
+                        div.appendTo($('body'));
+                    })
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div>I like these albums:</div>
+</body>
+</html>

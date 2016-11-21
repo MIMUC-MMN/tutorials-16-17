@@ -1,0 +1,39 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+}
+input[type=text], input[type=search] {
+  display: block;
+  height: 50px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid deeppink;
+  border-radius: 5px;
+  color: deeppink;
+  outline: none;
+  margin: 0 0 2em 0;
+  width: 150px;
+  transition: width 0.3s ease-in-out;
+  -webkit-transition: width 0.3s ease-in-out;
+}
+
+input[type=text]:focus, input[type=search]:focus {
+  width: 250px;
+}
+
+#result {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.artist {
+  flex: 1;
+  max-height: 150px;
+  min-width: 100px;
+  max-width: 150px;
+}
+
+.artist img {
+  width: 100%;
+  transition: opacity 0.2s;
+}

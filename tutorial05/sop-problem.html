@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SOP-Problem</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var resultDiv = $('#result');
+      var deferred = $.get('https://www.google.de/?gfe_rd=cr&gws_rd=ssl#newwindow=1&q=myquery');
+
+      deferred.done(function(data){
+        resultDiv.html('CORS is enabled!');
+      });
+
+      deferred.fail(function(e) {
+        resultDiv.html('Ooops, it did not work.');
+      });
+
+    });
+  </script>
+</head>
+<body>
+<p>This example should show you that it's not always possible to load content asynchronously.</p>
+<div id="result">
+  <!-- put your asynchronous content here -->
+</div>
+
+</body>
+</html>

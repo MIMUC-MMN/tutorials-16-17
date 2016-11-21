@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Spotify Artist Results</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const searchURL = 'https://api.spotify.com/v1/search';
+
+      $.get(searchURL, {
+        q: 'red hot',
+        type: 'artist'
+      }).done(function(data) {
+
+        var artists = data.artists.items;
+        // first clear everything inside the body / container.
+        $('#artistList').empty();
+
+        // loop through the artists and generate some html for each one.
+        artists.forEach(function(artist) {
+          var artistDiv = $('<li>');
+          // put the artists' name into the div:
+          artistDiv.html(artist.name);
+
+          // append the artist list item to the list
+          $('#artistList').append(artistDiv);
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+<ul id="artistList"></ul>
+</body>
+</html>

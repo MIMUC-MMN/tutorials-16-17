@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Breakout</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="spotify-breakout.css">
+  <script>
+    'use strict';
+    $(document).ready(function() {
+      const searchURL = 'https://api.spotify.com/v1/search';
+
+      $.get(searchURL, {
+        q: 'the',
+        type: 'artist'
+      }).done(function(data) {
+        if (data && data.artists && data.artists.items) {
+          // first clear everything inside the body / container.
+          $('body').empty();
+
+          // loop through the artists and generate some html for each one.
+          data.artists.items.forEach(function(artist) {
+            var divEl = $('<div>');
+            var imgEl = $('<img>');
+
+            // construct the image;
+            imgEl.attr('src', artist.images && artist.images.length ? artist.images[0].url : null);
+            imgEl.attr('alt', artist.name);
+
+            // add things together;
+            divEl.addClass('artist');
+            divEl.append(imgEl);
+            $('body').append(divEl);
+          });
+        }
+      });
+
+    });
+  </script>
+</head>
+<body>
+
+</body>
+</html>

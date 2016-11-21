@@ -1,0 +1,113 @@
+{
+  "artists": {
+    "href": "https://api.spotify.com/v1/search?query=ronnie+flex&offset=0&limit=20&type=artist",
+    "items": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5eir5zFJpES4j7gsymbVyl"
+        },
+        "id": "5eir5zFJpES4j7gsymbVyl",
+        "images": [
+          {
+            "height": 1000,
+            "url": "https://i.scdn.co/image/58e29b7a8228ec1c45b1daaddaf8226127697d90",
+            "width": 1000
+          },
+        ],
+        "name": "Ronnie Flex",
+        "popularity": 71,
+        "type": "artist",
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/3k9aX3ATI9IWd73pzj0fiS"
+        },
+        "followers": {
+          "href": null,
+          "total": 4
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/3k9aX3ATI9IWd73pzj0fiS",
+        "id": "3k9aX3ATI9IWd73pzj0fiS",
+        "images": [],
+        "name": "Veldentaal feat. Tadz Thots and Ronnie flex",
+        "popularity": 8,
+        "type": "artist",
+        "uri": "spotify:artist:3k9aX3ATI9IWd73pzj0fiS"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/4RhJUG2bKO3hfTUBATx0gv"
+        },
+        "followers": {
+          "href": null,
+          "total": 6
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/4RhJUG2bKO3hfTUBATx0gv",
+        "id": "4RhJUG2bKO3hfTUBATx0gv",
+        "images": [],
+        "name": "Veldentaal feat. Ronnie Flex, Cartiez, Murda",
+        "popularity": 9,
+        "type": "artist",
+        "uri": "spotify:artist:4RhJUG2bKO3hfTUBATx0gv"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/2Tmp9BvGFWPZjGpRd6QxPE"
+        },
+        "followers": {
+          "href": null,
+          "total": 3
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/2Tmp9BvGFWPZjGpRd6QxPE",
+        "id": "2Tmp9BvGFWPZjGpRd6QxPE",
+        "images": [],
+        "name": "Veldentaal feat. Jandro and Ronnie Flex",
+        "popularity": 8,
+        "type": "artist",
+        "uri": "spotify:artist:2Tmp9BvGFWPZjGpRd6QxPE"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/4PjgCW2vRbiSmDvREtCrg6"
+        },
+        "followers": {
+          "href": null,
+          "total": 2
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/4PjgCW2vRbiSmDvREtCrg6",
+        "id": "4PjgCW2vRbiSmDvREtCrg6",
+        "images": [],
+        "name": "Veldentaal feat. Maximillian and Ronnie Flex",
+        "popularity": 13,
+        "type": "artist",
+        "uri": "spotify:artist:4PjgCW2vRbiSmDvREtCrg6"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/0ZR2FmHOCWrd8M1lEoT39J"
+        },
+        "followers": {
+          "href": null,
+          "total": 33
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/0ZR2FmHOCWrd8M1lEoT39J",
+        "id": "0ZR2FmHOCWrd8M1lEoT39J",
+        "images": [],
+        "name": "Veldentaal feat. Ronnie Flex, Jandro and Lil Kleine",
+        "popularity": 13,
+        "type": "artist",
+        "uri": "spotify:artist:0ZR2FmHOCWrd8M1lEoT39J"
+      }
+    ],
+    "limit": 20,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 6
+  }
+}

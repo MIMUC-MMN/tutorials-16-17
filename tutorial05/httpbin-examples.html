@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX testing with httpbin</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <style>
+    #result {
+      padding: 1em;
+      display: block;
+      height: 500px;
+      font-family: monospace;
+      white-space: pre;
+    }
+  </style>
+  <script>
+    function testGET() {
+      $.ajax({
+        url: 'http://httpbin.org/get',
+        data: {
+          hello: 'world'
+        },
+        success: function(data) {
+          $('#result').html(JSON.stringify(data, null, 4));
+        }
+      });
+    }
+
+    function testPOST() {
+      // we're using a convenience method to perform a request via HTTP POST
+      // also, it's okay to use an URL as the first parameter and pass the settings
+      // as second paramter.
+      $.post('http://httpbin.org/post', {
+        hello: 'post world'
+        // this is another way to handle the response: Deferred objects (similar to Promises)
+      }).done(function(data) {
+        $('#result').html(JSON.stringify(data,null,4));
+      });
+    }
+  </script>
+</head>
+<body>
+
+<button id="postButton" onclick="testPOST()">Test POST</button>
+<button id="getButton" onclick="testGET()">Test GET</button>
+
+<div id="result"></div>
+
+</body>
+</html>
