@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla: Event Handling</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+
+<input id="nameInput" type="text" placeholder="Enter your name">
+<button id="okButton">OK</button>
+
+<div>
+  <h2>Hello, <span id="name"></span></h2>
+  <p>this is a demo page.</p>
+</div>
+
+<script>
+  var input = document.querySelector('#nameInput');
+  var button = document.querySelector('#okButton');
+
+  button.addEventListener('click', function() {
+    var name = document.querySelector('#name');
+    name.innerHTML = input.value;
+    input.value = '';
+    input.focus();
+  })
+</script>
+</body>
+</html>

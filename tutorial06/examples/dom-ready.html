@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla: DOM Ready</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    function domReady() {
+      var div = document.querySelector('div');
+      div.innerHTML = 'Ready!';
+    }
+    document.addEventListener("DOMContentLoaded", domReady);
+  </script>
+</head>
+<body>
+<div>Are you ready?</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla: Basic Ajax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #output {
+      white-space: pre; font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<div id="output"></div>
+
+<script>
+  var output = document.getElementById('output');
+  var req = new XMLHttpRequest();
+  req.open('get', 'http://httpbin.org/get');
+  req.onreadystatechange = function() {
+    if (req.readyState === 4) { // done
+      output.innerHTML = req.responseText;
+    }
+  };
+  req.send();
+</script>
+</body>
+</html>

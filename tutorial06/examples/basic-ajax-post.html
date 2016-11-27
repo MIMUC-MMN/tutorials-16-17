@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla: Basic Ajax POST</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #output {
+      white-space: pre;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<form>
+  <input type="text" placeholder="username" name="user">
+  <button type="submit">Go!</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+  var form = document.querySelector('form');
+  var userInput = document.querySelector('input[name=user]');
+  var output = document.querySelector('#output');
+
+  form.addEventListener('submit', function(e) {
+    var params;
+    var req;
+    e.preventDefault(); // don't submit at this point.
+
+    req = new XMLHttpRequest();
+    req.open('POST', 'http://httpbin.org/post');
+    req.setRequestHeader('Content-type', 'application/json');
+
+    req.onreadystatechange = function() {
+      var parsedResponse = JSON.parse(req.responseText);
+      if (req.readyState === 4) {
+        output.innerHTML = 'Username: ' + parsedResponse.json.user;
+      }
+    };
+
+    // with params!
+    params = JSON.stringify({user: userInput.value});
+    req.send(params);
+  });
+</script>
+
+</body>
+</html>

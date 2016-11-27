@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla DOM Access</title>
+  <style>
+    .highlight {
+      color: deeppink;
+    }
+  </style>
+</head>
+<body>
+<!-- example 01 -->
+<div id="myDiv">
+  Now you see me!
+</div>
+
+<!-- example 02 -->
+<ul class="fruits">
+  <li class="favorite">Apple</li>
+  <li>Apricot</li>
+  <li>Avocado</li>
+  <li class="favorite">Banana</li>
+  <li>Breadfruit</li>
+  <li>Blackberry</li>
+  <li class="favorite">Blueberry</li>
+</ul>
+
+<div>
+  <span>first span</span>
+  Text Node
+  <span>second span</span>
+</div>
+
+<script>
+  // example 01: replace HTML content
+  var myDiv = document.getElementById('myDiv');
+  myDiv.innerHTML = 'Now you don\'t.';
+
+  // example 02: work with NodeList
+  document.querySelectorAll('.fruits .favorite')
+    .forEach(function(el) {
+      el.classList.add('highlight');
+    });
+
+  $('.fruits .favorite').addClass('highlight');
+
+  // example 03: create and append elements
+  var myFruit = document.createElement('li');
+  myFruit.innerHTML = 'Pineapple';
+  document.querySelector('.fruits')
+    .appendChild(myFruit);
+
+  // example 04: element siblings
+  var firstSpan = document.querySelector('span');
+  var textSibling = firstSpan.nextSibling;
+  var elSibling = firstSpan.nextElementSibling;
+  textSibling.textContent = ' Nice 1. '
+
+</script>
+</body>
+</html>

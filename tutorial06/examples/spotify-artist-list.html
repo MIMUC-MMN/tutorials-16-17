@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla: Spotify Album List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<ul id="artists"></ul>
+
+<script>
+  'use strict';
+  var artists = document.getElementById('artists');
+  var req = new XMLHttpRequest();
+
+  var searchTerm = 'mule';
+  var baseURL = 'https://api.spotify.com/v1/search';
+  var fullURL = baseURL + '?q=' + searchTerm + '&type=artist';
+
+  req.open('get', fullURL);
+  req.addEventListener('readystatechange', function() {
+    var parsedResponse;
+    if (req.readyState === 4) { // done
+      parsedResponse = JSON.parse(req.responseText);
+      if ('artists' in parsedResponse && 'items' in parsedResponse.artists) {
+        parsedResponse.artists.items.forEach(function(artist) {
+          var li = document.createElement('li');
+          li.innerHTML = artist.name;
+          artists.appendChild(li);
+        })
+      }
+    }
+  });
+  req.send();
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakout 04</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+
+    #tester {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      margin: auto;
+      transition: width 0.6s, height 0.6s, background-color 0.5s, transform 0.5s;
+    }
+
+    #tester.rotated {
+      /* TODO */
+    }
+  </style>
+</head>
+<body onload="changeColor()">
+
+<button onclick="changeColor()">Color</button>
+<button onclick="rotate()">Rotate</button>
+<button onclick="resize() ">Size</button>
+
+<div id="tester"></div>
+
+<script>
+  var tester = document.getElementById('tester');
+
+  /**
+   * applies a random color to the backgroundColor property of the body.
+   * */
+  function changeColor() {
+    /**
+     * gives you a random color as string in hex format.
+     * snatched from http://stackoverflow.com/a/39078626/1447479
+     * @returns {string} color string like "#ab12ce"
+     */
+    function getRandomColor() {
+      return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+    }
+
+    tester.style.backgroundColor = getRandomColor();
+  }
+
+  function rotate() {
+    // TODO
+  }
+  function resize() {
+    // TODO
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!--
+  Right now, there is no check whatsoever if the words actually have to
+  do anything with javascript.
+  This page is meant to be used as part of the online multimedia tutorials.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Tobias Seitz">
+  <title>Name-a-term - JavaScript Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="jquery.min.js"></script>
+  <link rel="stylesheet" href="name-a-term.css">
+</head>
+<body>
+<header>Name-a-Term (Stadt Land Fluss)</header>
+
+<div id="container">
+  <div id="intro">
+    <h2>Rules:</h2>
+    <p>
+      You need to type a word for each letter of the alphabet.
+      The word has to have a meaning for JavaScript or jQuery.<br />
+    </p>
+    <p>
+      For example: A --> Ajax
+    </p>
+    <button id="startButton">Start the game</button>
+  </div>
+
+  <div id="game">
+    <div id="currentQuestion">
+      <h3>Name a JavaScript / jQuery Term that starts with <span class="currentLetter">*</span></h3>
+      <form id="playForm">
+        <label class="currentLetter" for="in">*</label>
+        <input type="text" id="in" placeholder="word... " min="1" required>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+
+    <h4>Your words</h4>
+    <div id="words"></div>
+    <button id="resetButton">Reset</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const playForm = $('#playForm');
+    const startButton = $('#startButton');
+    const resetButton = $('#resetButton');
+    const introEl = $('#intro');
+    const gameEl = $('#game');
+    const wordsEl = $('#words');
+    const inputEl = $('#in');
+
+    const currentLetterEls = $('.currentLetter');
+
+    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    const roundTime = 20000; // milliseconds --> 20 seconds.
+    var round = -1;
+    var rounds = JSON.parse(window.localStorage.getItem('rounds')) || {};
+    var timeoutId;
+
+    /**
+     * starts the game
+     */
+    function start() {
+      round = 0;
+      introEl.hide();
+      gameEl.show();
+      next();
+    }
+
+    /**
+     * ends the game.
+     */
+    function end() {
+      window.clearTimeout(timeoutId);
+      playForm.hide();
+      wordsEl.empty();
+      showWords();
+    }
+
+
+    /**
+     * displays all words that the user has already entered in a list.
+     * @param desc {Boolean} descending order -- default: false
+     */
+    function showWords(desc) {
+      var fun = desc ? 'prepend' : 'append';
+      if (Object.keys(rounds).length > 0) {
+        for (var letter in rounds) {
+          wordsEl[fun]('<div>' +
+            '<div class="letter" id="' + letter + '">' + letter + '</div>' +
+            '<div class="word">' + rounds[letter] + '</div>' +
+            '</div>');
+        }
+      }
+    }
+
+    /**
+     * commits a word to the local storage.
+     * @param word
+     */
+    function commit(word) {
+      rounds[alphabet[round]] = word;
+      window.localStorage.setItem('rounds', JSON.stringify(rounds));
+    }
+
+    /**
+     * function that handles a timeout (user has taken too long to answer).
+     */
+    function timeoutCallback() {
+      round++;
+      inputEl.val('');
+      if (round < alphabet.length) {
+        next();
+      } else {
+        end();
+      }
+    }
+
+    /**
+     * goes on to the next letter that does not have a corresponding word yet.
+     */
+    function next() {
+      var pattern;
+      var currentLetter = alphabet[round];
+      window.clearTimeout(timeoutId);
+
+
+      if (!currentLetter) {
+        round++;
+        currentLetter = alphabet[round];
+      }
+
+      // show the new word + letter
+      if (rounds[alphabet[round]] && $('#' + alphabet[round]).length === 0) {
+        wordsEl.prepend('<div>' +
+          '<div class="letter" id="' + alphabet[round] + '">' + alphabet[round] + '</div>' +
+          '<div class="word">' + rounds[alphabet[round]] + '</div>' +
+          '</div>');
+      }
+
+      // loop through everything that we already have.
+      while (rounds[currentLetter] && (round < alphabet.length)) {
+        round++;
+        currentLetter = alphabet[round];
+      }
+
+      // are we already at the end of the game?
+      if (round >= alphabet.length) {
+        end();
+      } else {
+        // we can continue
+        // display, for which letter a word has to be guessed.
+        currentLetterEls.text(currentLetter.toUpperCase());
+
+        // prevent invalid input. constructs a reg-ex as string.
+        pattern = '[' + currentLetter.toLowerCase() + ',' + currentLetter.toUpperCase() + '].+';
+        inputEl.attr('pattern', pattern);
+
+        // restart the timeout for the current round.
+        timeoutId = window.setTimeout(timeoutCallback, roundTime);
+      }
+    }
+
+    // attach an event handler to the form that takes care of the game logic.
+    playForm.on('submit', function(e) {
+      var word = inputEl.val();
+      e.preventDefault();
+      inputEl.val('');
+      commit(word);
+      next();
+    });
+
+    // event handlers for the start / reset buttons.
+    startButton.on('click', start);
+    resetButton.on('click', function() {
+      window.localStorage.clear();
+      end();
+      rounds = {};
+      window.clearTimeout(timeoutId);
+      wordsEl.empty();
+      playForm.show();
+      start();
+    });
+
+    showWords(true);
+  })();
+</script>
+<footer>Tobias Seitz (c) 2016</footer>
+</body>
+</html>
