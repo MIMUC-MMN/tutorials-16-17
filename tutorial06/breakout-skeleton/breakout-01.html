@@ -23,16 +23,7 @@
 
   const fruits = document.querySelectorAll('.fruits li');
 
-  // only works in FF starting with version 50.
-  /*fruits.forEach(function(fruit) {
-    fruit.innerHTML = '<div>' + fruit.innerHTML + '</div>';
-  });*/
-
-  // we'll stick with this to support older browsers:
-  for (let i = 0; i<fruits.length; i++) {
-    let fruit = fruits[i];
-    fruit.innerHTML = '<div>' + fruit.innerHTML + '</div>';
-  }
+  // TODO wrap the text content of all <li>s in a <div>
 </script>
 
 </body>
