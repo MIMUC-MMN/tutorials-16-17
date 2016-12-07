@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakout 02: Repeat Input</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input[type=number] {
+      width: 75px
+    }
+  </style>
+</head>
+<body>
+
+<div id="inputArea">
+  <input type="text"
+         id="text"
+         placeholder="Your Text"/>
+  <input type="number"
+         id="factor"
+         placeholder="Factor"/>
+</div>
+<div id="output"></div>
+<script>
+
+  function updateOutput() {
+
+    var text = document.getElementById("text").value; // what should we repeat?
+    var factor = parseInt(document.getElementById("factor").value); // how often do we repeat it?
+    var outputContainer = document.getElementById("output"); // where do we write it?
+    var htmlOut = ""; // this will hold all html that goes into #output as a string.
+
+    for (var i = 0; i < factor; i++) {
+      htmlOut += text + "<br />";
+    }
+
+    // actually write the html to the #output
+    outputContainer.innerHTML = htmlOut;
+  }
+
+  var inputs = document.querySelectorAll('input');
+
+  // we attach the same event listener to _all_ inputs
+  // so whenever a value changes, we update the output.
+  for (var i = 0; i < inputs.length; i++) {
+    // the 'input' event is very handy and should be used instead of 'keyup',
+    // because it ignores keys like Ctrl or Enter
+    inputs[i].addEventListener('input', updateOutput);
+  }
+</script>
+
+</body>
+</html>

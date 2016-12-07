@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakout 01: Iteration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    li div {
+      text-align: right;
+      -moz-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+<ul class="fruits"><li>Apple</li><li>Apricot</li><li>Avocado</li><li>Banana</li><li>Breadfruit</li><li>Blackberry</li><li>Blueberry</li><li>Cantaloupe</li><li>Currant</li><li>Cherry</li><li>Coconut</li><li>Cranberry</li><li>Cucumber</li><li>Date</li><li>Dragonfruit</li><li>Durian</li><li>Eggplant</li><li>Elderberry</li><li>Fig</li><li>Gooseberry</li><li>Grape</li><li>Grapefruit</li><li>Guava</li><li>Huckleberry</li><li>Kiwi fruit</li><li>Kumquat</li><li>Lemon</li><li>Lime</li><li>Loquat</li><li>Lychee</li><li>Mango</li><li>Melon</li><li>Miracle fruit</li><li>Mulberry</li><li>Nectarine</li><li>Nut</li><li>Olive</li><li>Orange</li><li>Papaya</li><li>Passionfruit</li><li>Peach</li><li>Pepper</li><li>Pear</li><li>Physalis</li><li>Plum</li><li>Pineapple</li><li>Pomegranate</li><li>Pomelo</li><li>Raspberry</li><li>Rambutan</li><li>Star fruit</li><li>Strawberry</li><li>Tomato</li><li>Ugli fruit</li></ul>
+
+
+<script>
+
+  var fruits = document.querySelectorAll('.fruits li');
+
+  // newer browsers also support fruits.forEach(), but this is just as fine.
+  for (var i = 0; i < fruits.length; i++) {
+    fruits[i].innerHTML = '<div>' + fruits[i].innerHTML + '</div>';
+  }
+
+
+</script>
+
+</body>
+</html>

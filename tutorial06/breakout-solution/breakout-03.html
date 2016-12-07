@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakout 03: post function</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<form>
+  <input type="text" placeholder="username" name="user">
+  <button type="submit">Go!</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+
+  /**
+   * allows performing a POST request with XMLHttpRequest.
+   *
+   * @param {String} url target of the request.
+   * @param {Function} callback is called when the request is done.
+   * @param {String} params serialized/stringified parameters to send with the request.
+   */
+  function postJSON(url, callback, params) {
+    var req = new XMLHttpRequest();
+    req.open('POST', url);
+    req.setRequestHeader('Content-type', 'application/json');
+    req.onreadystatechange = function() {
+      if (req.readyState === 4) {
+        callback(JSON.parse(req.responseText));
+      }
+    };
+    req.send(params);
+  }
+
+
+  var form = document.querySelector('form');
+  var userInput = document.querySelector('input[name=user]');
+  var output = document.querySelector('#output');
+
+
+  form.addEventListener('submit', function(e) {
+    var params;
+    // if we prevent the default action for the 'submit' event,
+    // we make sure that the page is not refreshed.
+    e.preventDefault();
+
+    // create proper POST parameters
+    // then stringify the outcome, because req.send() expects a String!
+    params = JSON.stringify({user: userInput.value});
+
+    // go!
+    postJSON('http://httpbin.org/post', function(res) {
+      // just show what we posted.
+      output.innerHTML = res.json.user;
+    }, params)
+  });
+</script>
+
+</body>
+</html>
