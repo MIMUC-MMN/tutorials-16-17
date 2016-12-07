@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Breakout</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    body {
+      /*display: flex;
+      flex-wrap: wrap;*/
+    }
+    input[type=text], input[type=search] {
+      display: block;
+      height: 50px;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid deeppink;
+      border-radius: 5px;
+      color: deeppink;
+      outline: none;
+      margin: 0 0 2em 0;
+      width: 250px;
+      transition: width 0.3s ease-in-out;
+      -webkit-transition: width 0.3s ease-in-out;
+    }
+
+    input[type=text]:focus, input[type=search]:focus {
+      width: 450px;
+    }
+
+    #result {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .artist {
+      flex: 1;
+      max-height: 150px;
+      min-width: 100px;
+      max-width: 150px;
+    }
+
+    .artist img {
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  </style>
+  <script>
+    'use strict';
+
+    $(document).ready(function() {
+      const searchURL = 'https://api.spotify.com/v1/search';
+      // first cache all major jQuery results;
+      const result = $('#result');
+      const searchField = $('#search');
+
+      var lastRequest;
+
+      // attach a handler for the 'input' event
+      searchField.on('input', function() {
+
+        // what's the current value?
+        var query = $(this).val();
+
+        // only start the query if the value has at least three characters.
+        if (query.length > 2) {
+          searchByArtist(query);
+        }
+      });
+
+      /**
+       * This searches the spotify database for a given artist name
+       * @param artist
+       */
+      function searchByArtist(artist) {
+        // cancel the last request, if there was one.
+        if (lastRequest) {
+          lastRequest.abort();
+        }
+        // perform the GET request.
+        lastRequest = $.get(searchURL, {
+          q: artist, // use the parameter passed to the function.
+          type: 'artist',
+          limit: 50
+
+          // handle the data:
+        }).done(function(data) {
+
+          // assert data.artists.items
+          if (data && data.artists && data.artists.items) {
+
+            // first clear everything inside the body / container.
+            result.empty();
+
+            // loop through the artists and generate some html for each one.
+            data.artists.items.forEach(function(artist) {
+              // construct a container and a couple of elements
+              var divEl = $('<div>');
+              var aEl = $('<a>');
+              var imgEl = $('<img>');
+
+              // let's say we only want to display those artists who have an image.
+              if (artist.images && artist.images.length) {
+
+                // make the link;
+                aEl.attr('href', artist.external_urls ? artist.external_urls.spotify : null);
+                aEl.attr('target', '_blank');
+
+                // construct the image;
+                imgEl.attr('src', artist.images && artist.images.length ? artist.images[0].url : null);
+                imgEl.attr('alt', artist.name);
+
+                // Ok, show off some CSS.
+                // on .artist img we have a transition on the opacity, with the default value of 0
+                // therefore we wait for the image to load and afterwards we fade it in by
+                // setting the opacity to 1.
+                imgEl.on('load', function() {
+                  $(this).css('opacity', '1');
+                });
+
+                // add things together;
+                aEl.append(imgEl);
+                divEl.addClass('artist');
+                divEl.append(aEl);
+                result.append(divEl);
+              }
+            });
+          }
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+<input type="search" id="search" placeholder="Search artist...">
+<div id="result">
+  <!-- this will contain the results from the spotify search.-->
+</div>
+</body>
+</html>
