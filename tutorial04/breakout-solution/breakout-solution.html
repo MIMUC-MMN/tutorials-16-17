@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Break Out!</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #container {
+      position: relative;
+    }
+
+    .videoContainer {
+      width: 560px;
+      position: relative;
+      margin: 30px auto;
+
+    }
+
+    .deleteButton {
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 50%;
+      background-color: #448AFF;
+      color: white;
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      z-index: 1;
+      -webkit-box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+
+    .deleteButton:hover, .deleteButton:focus {
+      background-color: #77aaff;
+      font-weight: bold;
+    }
+
+    .deleteButton:active {
+      background-color: #00B7FF;
+    }
+
+    .notificationBar {
+      position: absolute;
+      text-align: center;
+      padding: 1em;
+      display: none;
+      background-color: #77aaff;
+      color: white;
+      border: 2px solid #448AFF;
+      border-radius: 5px;
+      width: 60%;
+      min-height: 20px;
+      margin: auto;
+      z-index: 2;
+      /* http://stackoverflow.com/a/25776315/1447479 */
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+<h1>Breakout Videos</h1>
+<div id="container"></div>
+
+<script>
+
+  // make sure to use the URLs that include the /embed/ path.
+  var videoURLs = ['https://www.youtube.com/embed/4eNBM17tkjI',
+    'https://www.youtube.com/embed/dzqm4XVkMJ4',
+    'https://www.youtube.com/embed/XeBXpuOHzao',
+    'https://www.youtube.com/embed/tFL6KDSp9MQ',
+    'https://www.youtube.com/embed/Ca62hW7eUS0'
+  ];
+
+  // this will hold all the videoContainers.
+  var containerElement = $('#container');
+
+  // forEach is a better way in this case, because we can create proper scopes with the callback function.
+  videoURLs.forEach(function(url) {
+
+    // it's good practice to declare all variables at the beginning of a scope.
+    var iframeElement = $('<iframe height="315" width="560" frameborder="0" allowfullscreen>');
+    var videoContainerElement = $('<div class="videoContainer">');
+    var deleteButtonElement = $('<button class="deleteButton">X</button>');
+
+    //
+    // declarations done for this scope.
+    //
+
+
+    // the iframe only needs to have a valid src attribute to display the video.
+    iframeElement.prop('src', url);
+
+
+    // put things together.
+    // #container
+    //  |
+    //  -- .videoContainer
+    //      |
+    //      -- <iframe>
+    //      -- .deleteButton
+
+    videoContainerElement.append(iframeElement);
+    videoContainerElement.append(deleteButtonElement);
+    containerElement.append(videoContainerElement);
+
+    // handle the click event on the delete buttons.
+    deleteButtonElement.on('click', function() {
+      this.remove(); // remove the button.
+
+
+
+      // warning:   this will only work in its own scope, or if videoContainerElmenent is delcared as const, i.e.
+      //            if you try it in a for-loop you will run into problems if you don't use const instead of var.
+      videoContainerElement.animate({height: 'toggle', opacity: 'toggle'}, 250, function() {
+        // videoContainer.fadeOut() or any other also fine.
+
+
+        // let's see if there is already a notification bar
+        var notificationElement = containerElement.find('.notificationBar');
+        if (notificationElement.length === 0) {
+          // there is no notification bar --> create and prepend it
+          notificationElement = $('<div class="notificationBar">Video deleted.</div>');
+          $('body').prepend(notificationElement);
+        }
+        // now show the notification for 4000 milliseconds and fade it out again.
+        notificationElement.fadeIn().delay(4000).fadeOut();
+      });
+    });
+  });
+</script>
+</body>
+</html>
