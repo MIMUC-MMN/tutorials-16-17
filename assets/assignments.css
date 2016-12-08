@@ -1,0 +1,78 @@
+
+html, body {
+  margin:0;
+  padding:0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #eee;
+  font: 14px Roboto, 'Helvetica Neue',Helvetica, Arial, sans-serif;
+}
+
+header {
+  background-color: dodgerblue;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+}
+
+#container {
+  max-width:100%;
+  padding: 5px;
+  margin: auto;
+}
+
+button {
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  border: 0;
+  text-transform: uppercase;
+  background-color: deeppink;
+  color: white;
+  transition: box-shadow 0.3s, background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), /*bottom*/ 0 1px 5px 0 rgba(0, 0, 0, 0.12), /*sides*/ 0 3px 1px -2px rgba(0, 0, 0, 0.2); /*top*/
+  background-color: white;
+  color: black;
+}
+
+/**
+a material design card.
+ */
+.card {
+  margin: 16px;
+  padding: 16px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  min-width: 250px;
+  max-width:90%;
+}
+
+/**
+declare which containers act as flex parents
+ */
+.flexParent {
+  display: flex;
+  flex-wrap: wrap;
+}
+/**
+below .flexParent, flexChild will automatically adjust.
+ */
+.flexChild {
+  flex: 1;
+}
+
+@media (max-width:400px) {
+  .card {
+    margin: 8px auto;
+  }
+}
