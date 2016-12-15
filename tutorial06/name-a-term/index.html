@@ -26,6 +26,7 @@
     <p>
       For example: A --> Ajax
     </p>
+    <p>You have <strong>20 seconds</strong> to think of a word. Then the game moves on to the next letter.</p>
     <button id="startButton">Start the game</button>
   </div>
 
@@ -59,8 +60,11 @@
 
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     const roundTime = 20000; // milliseconds --> 20 seconds.
+
+    const keyPlayedRounds = 'nat-playedRounds';
+    const keyRounds = 'rounds';
     var round = -1;
-    var rounds = JSON.parse(window.localStorage.getItem('rounds')) || {};
+    var rounds = JSON.parse(window.localStorage.getItem(keyRounds)) || {};
     var timeoutId;
 
     /**
@@ -77,10 +81,15 @@
      * ends the game.
      */
     function end() {
+      var playedRounds = window.localStorage.getItem(keyPlayedRounds) || 0;
+      var descendingOrderNecessary = false;
+      playedRounds++;
+      window.localStorage.setItem(keyPlayedRounds, playedRounds);
       window.clearTimeout(timeoutId);
       playForm.hide();
       wordsEl.empty();
-      showWords();
+      showWords(descendingOrderNecessary);
+      showPlayedRounds();
     }
 
 
@@ -93,11 +102,16 @@
       if (Object.keys(rounds).length > 0) {
         for (var letter in rounds) {
           wordsEl[fun]('<div>' +
-            '<div class="letter" id="' + letter + '">' + letter + '</div>' +
-            '<div class="word">' + rounds[letter] + '</div>' +
+              '<div class="letter" id="' + letter + '">' + letter + '</div>' +
+              '<div class="word">' + rounds[letter] + '</div>' +
             '</div>');
         }
       }
+    }
+
+    function showPlayedRounds() {
+      wordsEl.prepend('<h3>You have played ' + window.localStorage.getItem(keyPlayedRounds) +
+        ' rounds.</h3>');
     }
 
     /**
@@ -106,7 +120,7 @@
      */
     function commit(word) {
       rounds[alphabet[round]] = word;
-      window.localStorage.setItem('rounds', JSON.stringify(rounds));
+      window.localStorage.setItem(keyRounds, JSON.stringify(rounds));
     }
 
     /**
@@ -156,7 +170,16 @@
       } else {
         // we can continue
         // display, for which letter a word has to be guessed.
-        currentLetterEls.text(currentLetter.toUpperCase());
+        currentLetterEls.filter('span').animate({
+          'margin-left': '500px',
+          'opacity':'toggle'
+        },200, function() {
+          $(this).text(currentLetter.toUpperCase()).animate({
+            'margin-left': '0',
+            'opacity':'toggle'
+          },200)
+        });
+        currentLetterEls.filter('label').text(currentLetter.toUpperCase());
 
         // prevent invalid input. constructs a reg-ex as string.
         pattern = '[' + currentLetter.toLowerCase() + ',' + currentLetter.toUpperCase() + '].+';
