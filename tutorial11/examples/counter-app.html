@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      background-color: #eee;
+      font: 14px Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    header {
+      background-color: dodgerblue;
+      padding: 10px;
+      font-size: 20px;
+      color: white;
+    }
+  </style>
+  <!-- polyfill for browsers that don't support web components fully, yet.-->
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <!-- import the view component -->
+  <link rel="import" href="counter-view.html">
+</head>
+<body>
+<header>Counter MVC</header>
+<counter-view></counter-view>
+</body>
+</html>
