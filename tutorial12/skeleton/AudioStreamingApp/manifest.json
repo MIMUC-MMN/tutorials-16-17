@@ -1,0 +1,7 @@
+{
+  "name": "AudioStreamingApp",
+  "short_name": "AudioStreamingApp",
+  "description": "An app that allows playing sound files from random URLs",
+  "start_url": "/",
+  "display": "standalone"
+}
