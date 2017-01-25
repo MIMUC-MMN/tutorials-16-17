@@ -1,0 +1,15 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "examples for tutorial 09 (online multimedia)",
+  "main": "test-jimp.js",
+  "scripts": {
+    "start": "node ./test-jimp.js"
+  },
+  "author": "Tobias Seitz",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^7.1.1",
+    "jimp": "^0.2.27"
+  }
+}

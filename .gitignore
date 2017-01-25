@@ -12,6 +12,10 @@ dw_php_codehinting.config
 *.userprefs
 *.usertasks
 
+private
+
+*.private.*
+
 #Mono Project Files
 *.pidb
 *.resources
