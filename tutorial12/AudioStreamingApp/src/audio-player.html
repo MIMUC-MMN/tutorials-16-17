@@ -1,0 +1,83 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+
+<dom-module id="audio-player">
+  <template>
+    <style>
+      .flexParent {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .flexParent paper-slider {
+        flex: 1;
+      }
+    </style>
+    <div class="flexParent">
+      <paper-button raised
+                    disabled="[[!songUrl]]"
+                    on-tap="_togglePlaying">Play
+      </paper-button>
+      <paper-slider min="0" max="1" step="0.1" value="{{volume}}" pin disabled="[[!songUrl]]"></paper-slider>
+      <paper-button disabled>[[currentTime]]</paper-button>
+    </div>
+    <audio id="player" src$="[[songUrl]]"></audio>
+  </template>
+  <script>
+    Polymer({
+      is: 'audio-player',
+      properties: {
+        playing: {
+          type: Boolean,
+          value: false,
+          notify: true,
+        },
+        volume: {
+          type: Number,
+          value: 0.5,
+          notify: true,
+          observer: '_volumeChanged'
+        },
+        songUrl: {
+          type: String,
+          value: ''
+        }
+      },
+      ready: function() {
+        this.$.player.addEventListener('timeupdate', this._updateTime.bind(this));
+        this._updateTime();
+      },
+      _togglePlaying: function() {
+        var player = this.querySelector('#player');
+        var button = this.querySelector('paper-button');
+        if (player.readyState !== player.HAVE_NOTHING) {
+          this.playing = !this.playing;
+          if (this.playing) {
+            player.play();
+            button.textContent = 'Pause';
+          } else {
+            player.pause();
+            button.textContent = 'Play';
+          }
+        }
+        else {
+          this.fire('play-error', 'Cannot play this song.');
+        }
+      },
+      _volumeChanged: function(vol) {
+        this.$.player.volume = vol;
+      },
+      _updateTime: function() {
+        const secsPerMinute = 60;
+        var currentSeconds = this.$.player.currentTime;
+        var minutes, seconds;
+        seconds = Math.floor(currentSeconds % secsPerMinute);
+        minutes = Math.floor(currentSeconds / secsPerMinute);
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        this.currentTime = minutes + ':' + seconds;
+      }
+    });
+  </script>
+</dom-module>
