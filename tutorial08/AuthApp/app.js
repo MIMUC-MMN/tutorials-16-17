@@ -6,9 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-var users = require('./routes/users');
 
 var app = express();
+var passport = require('passport');
+
+var auth = require('./routes/auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,13 +30,15 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// now all parsing middleware is there and we can use more advanced middleware.
+app.use(passport.initialize());
+app.use(passport.session());
 
 
+// forwarder if logged in
 app.use('/', [express.static(path.join(__dirname, 'public'))]);
-app.use('/secret', [express.static(path.join(__dirname, 'secret'))]);
+app.use('/secret', [auth.ensureAuthenticated, express.static(path.join(__dirname, 'secret'))]);
 
-app.use('/users', users);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
