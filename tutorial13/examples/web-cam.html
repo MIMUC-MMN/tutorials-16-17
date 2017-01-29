@@ -1,0 +1,55 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="web-cam">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host, video {
+        width: 100%;
+        height: 100%;
+      }
+
+      video[bw] {
+        filter: grayscale(1);
+        -webkit-filter: grayscale(1);
+      }
+
+      video[flipped] {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+      }
+    </style>
+    <video autoplay
+           bw$="[[ blackAndWhite ]]"
+           flipped$="[[ flipped ]]"
+    ></video>
+  </template>
+  <script>
+    Polymer({
+      is: 'web-cam',
+      properties: {
+        blackAndWhite: {
+          type: Boolean
+        },
+        flipped: {
+          type: Boolean
+        }
+      },
+      ready: function() {
+        var video = this.querySelector('video');
+        if (navigator.mediaDevices) {
+          navigator.mediaDevices.getUserMedia({video: true})
+            .then(function(stream) {
+              video.src = window.URL.createObjectURL(stream);
+            })
+            .catch(function() {});
+        }
+      }
+    });
+  </script>
+</dom-module>

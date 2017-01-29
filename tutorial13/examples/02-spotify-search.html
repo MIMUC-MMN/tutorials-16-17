@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+  <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+  <link rel="import" href="../shared-styles.html">
+
+  <style>
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <dom-module id="spotify-search">
+    <template>
+      <style include="shared-styles"></style>
+      <iron-ajax
+          auto
+          url="[[ apiUrl ]]"
+          last-response="{{ response }}"
+          loading="{{ loading }}"
+          params="[[ _makeQueryParams('eagles') ]]"
+          debounce-duration="300">
+      </iron-ajax>
+
+      <paper-spinner-lite active="[[ loading ]]" hidden$="[[ !loading ]]"></paper-spinner-lite>
+
+      <div class="card" hidden$="[[ loading ]]">
+
+        <template
+            is="dom-repeat"
+            items="[[ response.artists.items ]]"
+            as="artist">
+
+          <div class="box">
+            <img src="[[ _getLastImage(artist.images) ]]">
+            <span>[[ artist.name ]]</span>
+          </div>
+
+        </template>
+      </div>
+
+    </template>
+    <script>
+      Polymer({
+        is: 'spotify-search',
+        _getLastImage: function(images) {
+          if (images && images.length > 0) {
+            return images[images.length - 1].url;
+          } else {
+            return '';
+          }
+        },
+        _makeQueryParams: function(search) {
+          return {
+            type: 'artist',
+            q: search
+          }
+        },
+        ready: function() {
+          this.apiUrl = 'https://api.spotify.com/v1/search';
+        }
+      })
+    </script>
+  </dom-module>
+</head>
+<body>
+<header>Spotify Search</header>
+<spotify-search></spotify-search>
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+</body>
+</html>

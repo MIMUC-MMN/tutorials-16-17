@@ -1,0 +1,24 @@
+{
+  "name": "mmn-tutorial13",
+  "authors": [
+    "Tobias Seitz <tobi@tobitobi.de>"
+  ],
+  "description": "d",
+  "main": "README.md",
+  "license": "MIT",
+  "homepage": "www.medien.ifi.lmu.de",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.7.1",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "paper-input": "PolymerElements/paper-input#^1.1.23",
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1"
+  }
+}

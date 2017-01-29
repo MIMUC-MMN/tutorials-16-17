@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Cam Fun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="web-cam.html">
+  <style>
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    web-cam {
+      flex-basis: 33%;
+    }
+  </style>
+
+</head>
+<body>
+<header>Web Cam Module</header>
+
+<div id="container">
+  <web-cam black-and-white></web-cam>
+  <web-cam flipped></web-cam>
+  <web-cam black-and-white></web-cam>
+  <web-cam flipped></web-cam>
+  <web-cam black-and-white></web-cam>
+  <web-cam flipped></web-cam>
+  <web-cam black-and-white></web-cam>
+  <web-cam flipped></web-cam>
+  <web-cam black-and-white></web-cam>
+</div>
+
+
+<!-- alternatively, create your cams dynamically like this:-->
+<!--<script>
+  var numCams = 9;
+  var container = document.getElementById('container');
+  for (var i = 0; i < numCams; i++) {
+    var cam = document.createElement('web-cam');
+    cam.blackAndWhite = i % 2 === 0;
+    cam.flipped = i % 2 !== 0;
+    container.appendChild(cam);
+  }
+</script>-->
+
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Spotify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+  <style>
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <dom-module id="ajax-demo">
+    <template>
+      <style>
+        :host {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          align-items: flex-end;
+        }
+
+        .box {
+          flex: 1;
+        }
+
+        img {
+          max-width: 100%;
+        }
+      </style>
+      <iron-ajax
+          auto
+          url="artists.json"
+          last-response="{{ artists }}">
+      </iron-ajax>
+
+      <template
+          is="dom-repeat"
+          items="[[ artists ]]">
+
+        <div class="box">
+          <img src="[[ item.img ]]">
+          <span>[[ item.name ]]</span>
+        </div>
+      </template>
+
+    </template>
+    <script>
+      Polymer({
+        is: 'ajax-demo'
+      })
+    </script>
+  </dom-module>
+</head>
+<body>
+<ajax-demo></ajax-demo>
+</body>
+</html>
