@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test onclick</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <base href="https://polygit.org/components/">
+  <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link href="polymer/polymer.html" rel="import">
+
+  <dom-module id="click-test">
+    <template>
+      <button onclick="xyz()">CLICK ME</button>
+      <button on-click="xyz">WOOO HOOO</button>
+
+      <script>
+        function xyz() {
+          document.body.textContent = 'onclick="xyz()"';
+        }
+      </script>
+    </template>
+    <script>
+      Polymer({
+        is: 'click-test',
+        xyz: function() {
+          this.textContent = 'on-click!'
+        }
+      })
+    </script>
+  </dom-module>
+
+</head>
+<body>
+
+
+<click-test></click-test>
+
+</body>
+</html>
